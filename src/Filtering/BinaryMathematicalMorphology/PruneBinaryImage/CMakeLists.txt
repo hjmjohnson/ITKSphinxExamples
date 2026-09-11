@@ -2,7 +2,15 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(PruneBinaryImage)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKBinaryMathematicalMorphology
+    ITKCommon
+    ITKMathematicalMorphology
+)
 itk_generate_factory_registration()
 
 if(ENABLE_QUICKVIEW)
@@ -21,10 +29,8 @@ if(ENABLE_QUICKVIEW)
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKImageIO
-      ITK::ITKBinaryMathematicalMorphologyModule
-      ITK::ITKCommonModule
-      ITK::ITKMathematicalMorphologyModule
       ITK::ITKVtkGlueModule
       ${VTK_LIBRARIES}
   )
@@ -40,10 +46,8 @@ else()
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKImageIO
-      ITK::ITKBinaryMathematicalMorphologyModule
-      ITK::ITKCommonModule
-      ITK::ITKMathematicalMorphologyModule
   )
 endif()
 

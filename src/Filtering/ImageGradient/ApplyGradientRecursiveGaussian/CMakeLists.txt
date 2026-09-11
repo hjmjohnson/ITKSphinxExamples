@@ -2,16 +2,23 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(ApplyGradientRecursiveGaussian)
 
-find_package(ITK 6 REQUIRED)
+find_package(
+  ITK
+  6
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKCommon
+    ITKImageGradient
+    ITKImageIntensity
+)
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKCommonModule
-    ITK::ITKImageGradientModule
-    ITK::ITKImageIntensityModule
 )
 
 install(

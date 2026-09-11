@@ -10,16 +10,15 @@ find_package(
     ITKIOImageBase
     ITKMathematicalMorphology
     ITKIOPNG
+    ITKImageIO
 )
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKBinaryMathematicalMorphologyModule
-    ITK::ITKCommonModule
-    ITK::ITKMathematicalMorphologyModule
 )
 
 install(

@@ -2,7 +2,13 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(MeanDistanceBetweenAllPointsOnTwoCurves)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKDistanceMap
+)
 
 if(ENABLE_QUICKVIEW)
   find_package(
@@ -21,8 +27,7 @@ if(ENABLE_QUICKVIEW)
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
-      ITK::ITKCommonModule
-      ITK::ITKDistanceMapModule
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKVtkGlueModule
       ${VTK_LIBRARIES}
   )
@@ -35,12 +40,7 @@ if(ENABLE_QUICKVIEW)
   endif()
 else()
   add_executable(${PROJECT_NAME} Code.cxx)
-  target_link_libraries(
-    ${PROJECT_NAME}
-    PRIVATE
-      ITK::ITKCommonModule
-      ITK::ITKDistanceMapModule
-  )
+  target_link_libraries(${PROJECT_NAME} PRIVATE ${ITK_INTERFACE_LIBRARIES})
 endif()
 
 install(

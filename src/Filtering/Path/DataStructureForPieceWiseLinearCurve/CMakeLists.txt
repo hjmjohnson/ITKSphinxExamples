@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(DataStructureForPieceWiseLinearCurve)
 
-find_package(ITK REQUIRED)
+find_package(ITK REQUIRED COMPONENTS ITKPath)
 
 add_executable(${PROJECT_NAME} Code.cxx)
-target_link_libraries(${PROJECT_NAME} PRIVATE ITK::ITKPathModule)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ITK_INTERFACE_LIBRARIES})
 
 install(
   TARGETS

@@ -2,7 +2,15 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(BilateralFilterAnImage)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKCommon
+    ITKImageFeature
+    ITKImageIntensity
+)
 itk_generate_factory_registration()
 
 if(ENABLE_QUICKVIEW)
@@ -22,10 +30,8 @@ if(ENABLE_QUICKVIEW)
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKImageIO
-      ITK::ITKCommonModule
-      ITK::ITKImageFeatureModule
-      ITK::ITKImageIntensityModule
       ITK::ITKVtkGlueModule
       ${VTK_LIBRARIES}
   )
@@ -41,10 +47,8 @@ else()
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKImageIO
-      ITK::ITKCommonModule
-      ITK::ITKImageFeatureModule
-      ITK::ITKImageIntensityModule
   )
 endif()
 

@@ -10,15 +10,15 @@ find_package(
     ITKIOImageBase
     ITKMathematicalMorphology
     ITKIOPNG
+    ITKImageIO
 )
 
 add_executable(DilateUsingFunctionalGrayscale Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKCommonModule
-    ITK::ITKMathematicalMorphologyModule
 )
 
 install(

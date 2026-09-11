@@ -2,28 +2,34 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(ComputePCAShapeFromSample)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKAnisotropicSmoothing
+    ITKCommon
+    ITKFastMarching
+    ITKImageGradient
+    ITKImageGrid
+    ITKImageIntensity
+    ITKImageStatistics
+    ITKLevelSets
+    ITKOptimizers
+    ITKSignedDistanceFunction
+    ITKSpatialFunction
+    ITKStatistics
+    ITKThresholding
+    ITKTransform
+)
 itk_generate_factory_registration()
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKAnisotropicSmoothingModule
-    ITK::ITKCommonModule
-    ITK::ITKFastMarchingModule
-    ITK::ITKImageGradientModule
-    ITK::ITKImageGridModule
-    ITK::ITKImageIntensityModule
-    ITK::ITKImageStatisticsModule
-    ITK::ITKLevelSetsModule
-    ITK::ITKOptimizersModule
-    ITK::ITKSignedDistanceFunctionModule
-    ITK::ITKSpatialFunctionModule
-    ITK::ITKStatisticsModule
-    ITK::ITKThresholdingModule
-    ITK::ITKTransformModule
 )
 
 install(

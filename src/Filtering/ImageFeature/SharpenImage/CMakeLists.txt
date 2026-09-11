@@ -2,18 +2,24 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(SharpenImage)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKCommon
+    ITKImageFeature
+    ITKImageIntensity
+)
 itk_generate_factory_registration()
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKCommonModule
     ITK::ITKVtkGlueModule
-    ITK::ITKImageFeatureModule
-    ITK::ITKImageIntensityModule
 )
 
 install(
