@@ -2,21 +2,27 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(ResampleDICOMSeries)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKCommon
+    ITKIOGDCM
+    ITKImageFunction
+    ITKImageGrid
+    ITKImageIntensity
+    ITKImageStatistics
+    ITKTransform
+)
 itk_generate_factory_registration()
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKCommonModule
-    ITK::ITKIOGDCMModule
-    ITK::ITKImageFunctionModule
-    ITK::ITKImageGridModule
-    ITK::ITKImageIntensityModule
-    ITK::ITKImageStatisticsModule
-    ITK::ITKTransformModule
 )
 
 install(
