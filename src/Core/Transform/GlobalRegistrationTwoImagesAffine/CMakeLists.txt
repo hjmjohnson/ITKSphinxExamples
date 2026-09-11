@@ -2,23 +2,29 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(GlobalRegistrationTwoImagesAffine)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKCommon
+    ITKImageFilterBase
+    ITKImageFunction
+    ITKImageGrid
+    ITKImageIntensity
+    ITKOptimizers
+    ITKRegistrationCommon
+    ITKSpatialObjects
+    ITKTransform
+)
 itk_generate_factory_registration()
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKCommonModule
-    ITK::ITKImageFilterBaseModule
-    ITK::ITKImageFunctionModule
-    ITK::ITKImageGridModule
-    ITK::ITKImageIntensityModule
-    ITK::ITKOptimizersModule
-    ITK::ITKRegistrationCommonModule
-    ITK::ITKSpatialObjectsModule
-    ITK::ITKTransformModule
 )
 
 install(

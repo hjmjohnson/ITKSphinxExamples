@@ -2,15 +2,16 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(CreateAnotherInstanceOfAFilter)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKImageIntensity
+)
 
 add_executable(${PROJECT_NAME} Code.cxx)
-target_link_libraries(
-  ${PROJECT_NAME}
-  PRIVATE
-    ITK::ITKCommonModule
-    ITK::ITKImageIntensityModule
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ITK_INTERFACE_LIBRARIES})
 
 install(
   TARGETS

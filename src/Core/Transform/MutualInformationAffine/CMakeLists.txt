@@ -2,23 +2,29 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(MutualInformationAffine)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKImageCompare
+    ITKImageFilterBase
+    ITKImageGrid
+    ITKImageIntensity
+    ITKOptimizers
+    ITKRegistrationCommon
+    ITKSmoothing
+    ITKSpatialObjects
+    ITKTransform
+)
 itk_generate_factory_registration()
 
 add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
+    ${ITK_INTERFACE_LIBRARIES}
     ITK::ITKImageIO
-    ITK::ITKImageCompareModule
-    ITK::ITKImageFilterBaseModule
-    ITK::ITKImageGridModule
-    ITK::ITKImageIntensityModule
-    ITK::ITKOptimizersModule
-    ITK::ITKRegistrationCommonModule
-    ITK::ITKSmoothingModule
-    ITK::ITKSpatialObjectsModule
-    ITK::ITKTransformModule
 )
 
 install(

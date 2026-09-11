@@ -2,7 +2,19 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(GlobalRegistrationTwoImagesBSpline)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKImageIO
+    ITKCommon
+    ITKImageFilterBase
+    ITKImageGrid
+    ITKOptimizers
+    ITKRegistrationCommon
+    ITKSpatialObjects
+    ITKTransform
+)
 itk_generate_factory_registration()
 
 if(ENABLE_QUICKVIEW)
@@ -21,14 +33,8 @@ if(ENABLE_QUICKVIEW)
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKImageIO
-      ITK::ITKCommonModule
-      ITK::ITKImageFilterBaseModule
-      ITK::ITKImageGridModule
-      ITK::ITKOptimizersModule
-      ITK::ITKRegistrationCommonModule
-      ITK::ITKSpatialObjectsModule
-      ITK::ITKTransformModule
       ITK::ITKVtkGlueModule
       ${VTK_LIBRARIES}
   )
@@ -44,14 +50,8 @@ else()
   target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+      ${ITK_INTERFACE_LIBRARIES}
       ITK::ITKImageIO
-      ITK::ITKCommonModule
-      ITK::ITKImageFilterBaseModule
-      ITK::ITKImageGridModule
-      ITK::ITKOptimizersModule
-      ITK::ITKRegistrationCommonModule
-      ITK::ITKSpatialObjectsModule
-      ITK::ITKTransformModule
   )
 endif()
 

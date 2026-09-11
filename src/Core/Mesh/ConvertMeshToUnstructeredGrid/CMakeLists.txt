@@ -2,7 +2,13 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(ConvertMeshToUnstructeredGrid)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKMesh
+)
 
 find_package(VTK REQUIRED)
 set(_vtk_prefix "")
@@ -25,8 +31,7 @@ add_executable(${PROJECT_NAME} Code.cxx)
 target_link_libraries(
   ${PROJECT_NAME}
   PRIVATE
-    ITK::ITKCommonModule
-    ITK::ITKMeshModule
+    ${ITK_INTERFACE_LIBRARIES}
     ${VTK_LIBRARIES}
 )
 

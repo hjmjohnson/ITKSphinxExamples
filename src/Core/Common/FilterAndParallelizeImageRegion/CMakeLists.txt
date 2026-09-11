@@ -2,16 +2,18 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(FilterAndParallelizeImageRegion)
 
-find_package(ITK 6 REQUIRED)
+find_package(
+  ITK
+  6
+  REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKImageIntensity
+    ITKTestKernel
+)
 
 add_executable(${PROJECT_NAME} Code.cxx)
-target_link_libraries(
-  ${PROJECT_NAME}
-  PRIVATE
-    ITK::ITKCommonModule
-    ITK::ITKImageIntensityModule
-    ITK::ITKTestKernelModule
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ITK_INTERFACE_LIBRARIES})
 
 install(
   TARGETS

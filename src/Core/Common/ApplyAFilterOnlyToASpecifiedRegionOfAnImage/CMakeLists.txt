@@ -2,20 +2,21 @@ cmake_minimum_required(VERSION 3.22.1)
 
 project(ApplyAFilterOnlyToASpecifiedRegionOfAnImage)
 
-find_package(ITK REQUIRED)
+find_package(
+  ITK
+  REQUIRED
+  COMPONENTS
+    ITKCommon
+    ITKImageFeature
+    ITKTestKernel
+)
 
 add_executable(
   ${PROJECT_NAME}
   Code.cxx
   Code.py
 )
-target_link_libraries(
-  ${PROJECT_NAME}
-  PRIVATE
-    ITK::ITKCommonModule
-    ITK::ITKImageFeatureModule
-    ITK::ITKTestKernelModule
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ITK_INTERFACE_LIBRARIES})
 
 install(
   TARGETS
